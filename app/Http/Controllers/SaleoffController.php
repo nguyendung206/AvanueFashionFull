@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Saleoffs;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SaleoffController extends Controller
 {
     public function Index(Request $request)
     {
         if ($request->search !== null) {
-            $data = Saleoffs::where('Type', 'like', '%' . $request->search . '%')->get();
+            $data = Saleoffs::where('Type', 'like', '%' . $request->search . '%')->paginate(10);
         } else {
-            $data = Saleoffs::all();
+            $data = Saleoffs::paginate(10);
         }
         return view('admin.Saleoff.Index', [
             'title' => 'Quản lý khuyến mãi'
-        ], compact('data'));
+        ], compact('data'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     public function Create()

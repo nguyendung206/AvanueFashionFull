@@ -12,13 +12,13 @@ class EmployeeController extends Controller
     public function Index(Request $request)
     {
         if ($request->search !== null) {
-            $data = Employees::where('FullName', 'like', '%' . $request->search . '%')->get();
+            $data = Employees::where('FullName', 'like', '%' . $request->search . '%')->paginate(9);
         } else {
-            $data = Employees::all();
+            $data = Employees::paginate(10);
         }
         return view('admin.Employee.Index', [
             'title' => 'Quản lý nhân viên'
-        ], compact('data'));
+        ], compact('data'))->with('i', (request()->input('page', 1) - 1) * 9);
     }
 
     public function Create()

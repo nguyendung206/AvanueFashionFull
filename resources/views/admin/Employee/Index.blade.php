@@ -67,6 +67,9 @@
                 </div>
             </div>
             @endforeach
+            <div class="text-center">
+                {{$data->links()}}
+            </div>
         </div>
     </div>
 </div>

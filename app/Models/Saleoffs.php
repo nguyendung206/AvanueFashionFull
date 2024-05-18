@@ -10,8 +10,8 @@ class Saleoffs extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'saleoffs';
-    protected $primaryKey = 'SaleoffId';
-    protected $fillable = ['SaleOffId', 'Type', 'DiscountPrice'];
+    protected $primaryKey = 'SaleOffId';
+    // protected $fillable = ['SaleOffId', 'Type', 'DiscountPrice'];
     public function products()
     {
         return $this->belongsToMany(Products::class);

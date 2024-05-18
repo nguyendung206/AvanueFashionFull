@@ -17,7 +17,7 @@
                     <i class="fa fa-floppy-o"></i>
                     Lưu dữ liệu
                 </button>
-                <a href="{{route('customer')}}" class="btn btn-default">Quay lại</a>
+                <a href="{{route('size')}}" class="btn btn-default">Quay lại</a>
             </div>
             @csrf
         </form>

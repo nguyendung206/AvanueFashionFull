@@ -15,13 +15,13 @@ class ProductController extends Controller
     public function Index(Request $request)
     {
         if ($request->search !== null) {
-            $data = Products::where('ProductName', 'like', '%' . $request->search . '%')->get();
+            $data = Products::where('ProductName', 'like', '%' . $request->search . '%')->paginate(10);
         } else {
-            $data = Products::all();
+            $data = Products::paginate(10);
         }
         return view('admin.Product.Index', [
             'title' => 'Quản lý mặt hàng'
-        ], compact('data'));
+        ], compact('data'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     public function Create()

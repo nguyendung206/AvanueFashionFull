@@ -10,14 +10,14 @@ class CategoryController extends Controller
     public function Index(Request $request)
     {
         if ($request->search !== null) {
-            $data = Categories::where('CategoryName', 'like', '%' . $request->search . '%')->get();
+            $data = Categories::where('CategoryName', 'like', '%' . $request->search . '%')->paginate(15);
         } else {
-            $data = Categories::all();
+            $data = Categories::paginate(15);
         }
         $categorylist = Categories::where('ParentId', 0)->get();
         return view('admin.Category.Index', [
             'title' => 'Quản lý loại hàng'
-        ], compact('data', 'categorylist'));
+        ], compact('data', 'categorylist'))->with('i', (request()->input('page', 1) - 1) * 15);
     }
 
     public function Create()

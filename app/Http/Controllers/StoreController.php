@@ -11,13 +11,13 @@ class StoreController extends Controller
     public function Index(Request $request)
     {
         if ($request->search !== null) {
-            $data = Stores::where('StoreName', 'like', '%' . $request->search . '%')->get();
+            $data = Stores::where('StoreName', 'like', '%' . $request->search . '%')->paginate(10);
         } else {
-            $data = Stores::all();
+            $data = Stores::paginate(10);
         }
         return view('admin.Store.Index', [
             'title' => 'Quản lý chi nhánh cửa hàng'
-        ], compact('data'));
+        ], compact('data'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     public function Create()

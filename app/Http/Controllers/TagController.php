@@ -10,13 +10,13 @@ class TagController extends Controller
     public function Index(Request $request)
     {
         if ($request->search !== null) {
-            $data = Tags::where('TagName', 'like', '%' . $request->search . '%')->get();
+            $data = Tags::where('TagName', 'like', '%' . $request->search . '%')->paginate(10);
         } else {
-            $data = Tags::all();
+            $data = Tags::paginate(10);
         }
         return view('admin.Tag.Index', [
             'title' => 'Quản lý tag'
-        ], compact('data'));
+        ], compact('data'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     public function Create()

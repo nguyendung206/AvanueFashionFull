@@ -10,13 +10,13 @@ class ColorController extends Controller
     public function Index(Request $request)
     {
         if ($request->search !== null) {
-            $data = Colors::where('ColorName', 'like', '%' . $request->search . '%')->get();
+            $data = Colors::where('ColorName', 'like', '%' . $request->search . '%')->get()->paginate(15);
         } else {
-            $data = Colors::all();
+            $data = Colors::paginate(15);
         }
         return view('admin.Color.Index', [
             'title' => 'Quản lý màu sắc'
-        ], compact('data'));
+        ], compact('data'))->with('i', (request()->input('page', 1) - 1) * 15);
     }
 
     public function Create()

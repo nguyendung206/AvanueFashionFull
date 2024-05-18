@@ -35,6 +35,7 @@
                 <table class="table table-bordered table-hover table-striped">
                     <thead class="bg-primary">
                         <tr>
+                            <th>STT</th>
                             <th>Tên khách hàng</th>
                             <th>Số điện thoại</th>
                             <th>Email</th>
@@ -45,6 +46,7 @@
                     <tbody>
                         @foreach($data as $item)
                         <tr>
+                            <td>{{++$i}}</td>
                             <td>{{ $item->Fullname }}</td>
                             <td>{{ $item->Phone }}</td>
                             <td>{{ $item->Email }}</td>
@@ -63,8 +65,7 @@
                 </table>
             </div>
             <div class="text-center">
-                <ul class="pagination">
-                </ul>
+                {{$data->links()}}
             </div>
         </div>
     </div>

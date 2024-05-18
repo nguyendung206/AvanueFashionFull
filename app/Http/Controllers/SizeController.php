@@ -10,13 +10,13 @@ class SizeController extends Controller
     public function Index(Request $request)
     {
         if ($request->search !== null) {
-            $data = Sizes::where('SizeName', 'like', '%' . $request->search . '%')->get();
+            $data = Sizes::where('SizeName', 'like', '%' . $request->search . '%')->paginate(10);
         } else {
-            $data = Sizes::all();
+            $data = Sizes::paginate(10);
         }
         return view('admin.Size.Index', [
             'title' => 'Quản lý Size'
-        ], compact('data'));
+        ], compact('data'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     public function Create()

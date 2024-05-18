@@ -59,8 +59,7 @@
                 </table>
             </div>
             <div class="text-center">
-                <ul class="pagination">
-                </ul>
+                {{$data->links()}}
             </div>
         </div>
     </div>

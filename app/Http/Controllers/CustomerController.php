@@ -11,13 +11,13 @@ class CustomerController extends Controller
     public function Index(Request $request)
     {
         if ($request->search !== null) {
-            $data = Customers::where('Fullname', 'like', '%' . $request->search . '%')->get();
+            $data = Customers::where('Fullname', 'like', '%' . $request->search . '%')->paginate(10);
         } else {
-            $data = Customers::all();
+            $data = Customers::paginate(10);
         }
         return view('admin.Customer.Index', [
             'title' => 'Quản lý khách hàng'
-        ], compact('data'));
+        ], compact('data'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     public function Create()

@@ -6,6 +6,7 @@ use App\Models\Employees;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -34,6 +35,7 @@ class AdminController extends Controller
         if ($user) {
             if (Hash::check($password, $user->Password)) {
                 Session::put('admin', $user);
+                auth()->login($user);
                 return view('admin.Index', [
                     'title' => 'Trang Quản Trị Admin'
                 ]);
@@ -48,6 +50,7 @@ class AdminController extends Controller
     public function SignOut()
     {
         Session::forget('admin');
+        Auth::logout();
         return redirect()->route('login'); 
     }
 }
