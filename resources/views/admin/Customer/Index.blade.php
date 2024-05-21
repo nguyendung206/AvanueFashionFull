@@ -47,7 +47,7 @@
                         @foreach($data as $item)
                         <tr>
                             <td>{{++$i}}</td>
-                            <td>{{ $item->Fullname }}</td>
+                            <td>{{ $item->CustomerName }}</td>
                             <td>{{ $item->Phone }}</td>
                             <td>{{ $item->Email }}</td>
                             <td>{{ $item->Address }}</td>

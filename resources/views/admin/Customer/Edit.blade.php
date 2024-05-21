@@ -6,7 +6,7 @@
             <input type="hidden" name="CustomerId" value="{{$customer->CustomerId}}" />
             <div class="form-group">
                 <label>Tên khách hàng:</label>
-                <input type="text" class="form-control" name="Fullname" value="{{$customer->Fullname}}">
+                <input type="text" class="form-control" name="CustomerName" value="{{$customer->CustomerName}}">
             </div>
             <div class="form-group">
                 <label>Số điện thoại:</label>

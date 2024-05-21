@@ -11,7 +11,7 @@ class CustomerController extends Controller
     public function Index(Request $request)
     {
         if ($request->search !== null) {
-            $data = Customers::where('Fullname', 'like', '%' . $request->search . '%')->paginate(10);
+            $data = Customers::where('CustomerName', 'like', '%' . $request->search . '%')->paginate(10);
         } else {
             $data = Customers::paginate(10);
         }
@@ -39,7 +39,7 @@ class CustomerController extends Controller
     {
         if ($request->CustomerId == 0) {
             $customer = new Customers();
-            $customer->Fullname = $request->Fullname;
+            $customer->CustomerName = $request->CustomerName;
             $customer->Email = $request->Email;
             $customer->Phone = $request->Phone;
             $customer->Address = $request->Address;
@@ -49,7 +49,7 @@ class CustomerController extends Controller
         } else {
             $customer = Customers::where('CustomerId', $request->CustomerId)->first();
             if ($customer) {
-                $customer->Fullname = $request->Fullname;
+                $customer->CustomerName = $request->CustomerName;
                 $customer->Email = $request->Email;
                 $customer->Phone = $request->Phone;
                 $customer->Address = $request->Address;

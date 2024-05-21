@@ -10,4 +10,8 @@ class Shippers extends Model
     use HasFactory;
     public $timestamps = false;
     protected $primaryKey = 'ShipperId';
+    public function orders()
+    {
+        return $this->hasMany(Orders::class, 'ShipperId');
+    }
 }

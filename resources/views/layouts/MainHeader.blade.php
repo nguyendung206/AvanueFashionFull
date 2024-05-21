@@ -9,32 +9,33 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet" href="/bower_components/Ionicons/css/ionicons.min.css">
-<!-- daterange picker -->
-<link rel="stylesheet" href="/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-<!--bootstrap datepicker -->
-<link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-<!-- Select2 -->
-<link rel="stylesheet" href="/bower_components/select2/dist/css/select2.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
-<!-- AdminLTE Skins. Choose a skin from the css/skins
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!--bootstrap datepicker -->
+  <link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/bower_components/select2/dist/css/select2.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
      folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Google Font -->
-  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> -->
+
 </head>
+
 <body class="hold-transition skin-blue fixed sidebar-mini">
   <!-- Site wrapper -->
   <div class="wrapper">
@@ -70,7 +71,7 @@
                 <li class="user-header">
                   <img src="/upload/employee/{{ Session::get('admin')->Photo }}" class="img-circle" alt="User Image">
                   <p>
-                  {{ Session::get('admin')->FullName }} - Web Developer
+                    {{ Session::get('admin')->FullName }} - Web Developer
                   </p>
                 </li>
                 <!-- Menu Footer-->

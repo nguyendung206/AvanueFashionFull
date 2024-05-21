@@ -36,7 +36,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=""><i class="fa-solid fa-list-check"></i> Danh mục đơn hàng</a></li>
+          <li><a href="{{route('order')}}"><i class="fa-solid fa-list-check"></i> Danh mục đơn hàng</a></li>
           <li><a href=""><i class="fa-solid fa-cart-plus"></i> Lập đơn hàng</a></li>
         </ul>
       </li>

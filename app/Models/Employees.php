@@ -22,10 +22,15 @@ class Employees extends Authenticatable
     public function permisions() {
         return $this->belongsTo(Permisions::class);
     }
+    public function orders()
+    {
+        return $this->hasMany(Orders::class, 'EmployeeId', 'EmployeeId');
+    }
     protected $fillable = [
         'email',
         'password',
         'permisionId',
+        'FullName',
     ];
 
     /**

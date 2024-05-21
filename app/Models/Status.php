@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customers extends Model
+class Status extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $primaryKey = 'CustomerId';
+    protected $primaryKey = 'Status';
+    protected $table = 'orderstatus';
     public function orders()
     {
-        return $this->hasMany(Orders::class, 'CustomerId', 'CustomerId');
+        return $this->hasMany(Orders::class, 'Status', 'Status');
     }
 }

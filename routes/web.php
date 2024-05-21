@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleoffController;
 use App\Http\Controllers\ShipperController;
@@ -135,6 +136,19 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{ShipperId}', [ShipperController::class, 'Edit'])->name('editshipper');
             Route::get('/delete/{ShipperId}', [ShipperController::class, 'showDeleteForm'])->name('deleteshipper');
             Route::post('/delete/{ShipperId}', [ShipperController::class, 'delete'])->name('deleteshipper.post');
+        });
+
+        Route::prefix('order')->group(function () {
+            Route::get('/', [OrderController::class, 'Index'])->name('order');
+            Route::get('/search', [OrderController::class, 'Index'])->name('searchorder');
+            Route::get('/orderdetail/{OrderId}', [OrderController::class, 'Detail'])->name('orderdetail');
+            Route::get('/orderdetail/accept/{OrderId}', [OrderController::class, 'Accept'])->name('accept');
+            Route::get('/orderdetail/reject/{OrderId}', [OrderController::class, 'Reject'])->name('reject');
+            Route::get('/orderdetail/finish/{OrderId}', [OrderController::class, 'Finish'])->name('finish');
+            Route::get('/orderdetail/cancel/{OrderId}', [OrderController::class, 'Cancel'])->name('cancel');
+            Route::post('/orderdetail/shipping', [OrderController::class, 'Shipping'])->name('shipping');
+            Route::get('/orderdetail/changeaddress/{OrderId}', [OrderController::class, 'Address'])->name('changeaddress');
+            Route::get('/orderdetail/delete/{OrderId}', [OrderController::class, 'Delete'])->name('delete');
         });
     });
 });

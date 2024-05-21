@@ -6,7 +6,7 @@
             @csrf
             <div class="form-group">
                 <label>Tên khách hàng:</label>
-                <p class="form-control-static">{{ $customer->Fullname }}</p>
+                <p class="form-control-static">{{ $customer->CustomerName }}</p>
             </div>
             <div class="form-group">
                 <label>Số điện thoại:</label>
