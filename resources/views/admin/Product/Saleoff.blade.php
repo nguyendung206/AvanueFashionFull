@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 @section('main')
 <div class="box box-primary">
     <div class="box-body">

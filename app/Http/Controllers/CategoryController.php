@@ -14,29 +14,50 @@ class CategoryController extends Controller
         } else {
             $data = Categories::paginate(15);
         }
-        $categorylist = Categories::where('ParentId', 0)->get();
+        $categorylist = Categories::all();
         return view('admin.Category.Index', [
             'title' => 'Quản lý loại hàng'
         ], compact('data', 'categorylist'))->with('i', (request()->input('page', 1) - 1) * 15);
     }
 
+    private function buildCategoryTree($categories, $parentId = 0, $level = 0)
+    {
+        $branch = [];
+
+        foreach ($categories as $category) {
+            if ($category->ParentId == $parentId) {
+                $category->level = $level;
+                $branch[] = $category;
+                $children = $this->buildCategoryTree($categories, $category->CategoryId, $level + 1);
+                $branch = array_merge($branch, $children);
+            }
+        }
+
+        return $branch;
+    }
     public function Create()
     {
         $category = new Categories();
-        $categorylist = Categories::where('ParentId', 0)->get();
+        $allCategories = Categories::all();
+        $categoryTree = $this->buildCategoryTree($allCategories);
+
         $category->CategoryId = 0;
         return view('admin.Category.Edit', [
             'title' => 'Thêm loại hàng'
-        ], compact('category', 'categorylist'));
+        ], compact('category', 'categoryTree'));
     }
+
     public function Edit($CategoryId)
     {
         $category = Categories::where('CategoryId', $CategoryId)->first();
-        $categorylist = Categories::where('ParentId', 0)->get();
+        $allCategories = Categories::all();
+        $categoryTree = $this->buildCategoryTree($allCategories);
+
         return view('admin.Category.Edit', [
             'title' => 'Cập nhật thông tin loại hàng',
-        ], compact('category','categorylist'));
+        ], compact('category', 'categoryTree'));
     }
+
     public function Save(Request $request)
     {
         if ($request->CategoryId == 0) {
@@ -53,19 +74,21 @@ class CategoryController extends Controller
                 $category->ParentId = $request->ParentId;
                 $category->CategoryDescription = $request->CategoryDescription;
                 $category->save();
-                return redirect('category')->with('message', 'Cập nhật thành công');
+                return redirect()->route('category')->with('message', 'Cập nhật thành công');
             }
         }
     }
     public function showDeleteForm($CategoryId)
     {
         $category = Categories::where('CategoryId', $CategoryId)->first();
-        $categorylist = Categories::where('ParentId', 0)->get();
+        $parentCategory = Categories::where('CategoryId', $category->ParentId)->first();
+
         return view('admin.Category.Delete', [
             'title' => 'Xóa loại hàng',
-        ], compact('category','categorylist'));
+        ], compact('category', 'parentCategory'));
     }
-    public function delete(Request $request, $CategoryId)
+
+    public function delete($CategoryId)
     {
         $category = Categories::find($CategoryId);
 
@@ -74,6 +97,6 @@ class CategoryController extends Controller
         }
 
         $category->delete();
-        return redirect('category')->with('message', 'Xóa loại hàng thành công');
+        return redirect()->route('category')->with('message', 'Xóa loại hàng thành công');
     }
 }

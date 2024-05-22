@@ -1,5 +1,5 @@
-@include ('layouts.MainHeader')
-@include ('layouts.MainSideBar')
+@include ('admin.layouts.MainHeader')
+@include ('admin.layouts.MainSideBar')
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
@@ -10,4 +10,4 @@
     @yield('main')
   </section>
 </div>
-@include ('layouts.MainFooter')
+@include ('admin.layouts.MainFooter')

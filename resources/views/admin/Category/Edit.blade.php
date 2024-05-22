@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 @section('main')
 <div class="box box-primary">
     <div class="box-body">
@@ -12,13 +12,12 @@
                 <label>Loại hàng cha:</label>
                 <select class="form-control" name="ParentId">
                     <option value="0">-- Loại hàng --</option>
-                    @foreach($categorylist as $item)
+                    @foreach($categoryTree as $item)
                     <option value="{{ $item->CategoryId }}" {{ $item->CategoryId == $category->ParentId ? 'selected' : '' }}>
-                        {{ $item->CategoryName }}
+                        {{ str_repeat('--', $item->level) . ' ' . $item->CategoryName }}
                     </option>
                     @endforeach
                 </select>
-
             </div>
             <div class="form-group">
                 <label>Mô tả</label>
@@ -35,4 +34,4 @@
         </form>
     </div>
 </div>
-@stop();
+@stop

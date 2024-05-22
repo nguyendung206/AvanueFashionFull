@@ -1,20 +1,16 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 @section('main')
 <div class="box box-danger">
     <div class="box-body">
-        <form action="{{ route('deleteemployee', ['EmployeeId' => $category->EmployeeId]) }}" method="post">
+        <form action="{{ route('deletecategory', ['CategoryId' => $category->CategoryId]) }}" method="post">
             @csrf
             <div class="form-group">
-                <label>Tên nhân viên:</label>
+                <label>Tên loại hàng:</label>
                 <p class="form-control-static">{{ $category->CategoryName }}</p>
             </div>
             <div class="form-group">
                 <label>Loại hàng cha:</label>
-                @foreach($categorylist as $item)
-                @if($item->CategoryId == $category->ParentId)
-                <p class="form-control-static">{{$item->CategoryName}}</p>
-                @endif
-                @endforeach
+                <p class="form-control-static">{{ $parentCategory->CategoryName ?? 'Không có' }}</p>
             </div>
             <div class="form-group">
                 <label>Mô tả:</label>
@@ -25,7 +21,7 @@
                     <i class="fa fa-trash-o"></i>
                     Xác nhận xóa
                 </button>
-                <a href="{{ route('employee') }}" class="btn btn-default">Quay lại</a>
+                <a href="{{ route('category') }}" class="btn btn-default">Quay lại</a>
             </div>
         </form>
     </div>

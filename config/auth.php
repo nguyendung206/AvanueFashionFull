@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'customer' => [ // Thêm guard mới cho khách hàng
+            'driver' => 'session',
+            'provider' => 'customers', // Sử dụng provider mới cho guard 'customer'
+        ],
     ],
 
     /*
@@ -64,7 +68,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Employees::class,
         ],
-
+        'customers' => [ // Thêm provider mới cho khách hàng
+            'driver' => 'eloquent',
+            'model' => App\Models\Customers::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -94,6 +101,12 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'customers' => [ // Thêm cấu hình đặt lại mật khẩu cho khách hàng
+            'provider' => 'customers',
+            'table' => 'password_reset_tokens_customers', // Tùy chỉnh bảng nếu cần
             'expire' => 60,
             'throttle' => 60,
         ],

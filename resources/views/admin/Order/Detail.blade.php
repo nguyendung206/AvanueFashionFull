@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 @section('main')
 <div class="box box-primary">
     <div class="box-header text-right">
@@ -10,10 +10,10 @@
             <ul class="dropdown-menu" role="menu">
                 @if($status == 1)
                 <li><a href="{{ route('accept', $order->OrderId) }}" onclick="return confirm('Xác nhận duyệt chấp nhận đơn hàng này?')">Duyệt đơn hàng</a></li>
-                <li><a href="{{ route('changeaddress', $order->OrderId) }}" class="btn-modal">Thay đổi địa chỉ</a></li>
+                <li><a href="#" class="btn-modal" data-toggle="modal" data-target="#addressModal">Thay đổi địa chỉ</a></li>
                 <li><a href="{{ route('reject', $order->OrderId) }}" onclick="return confirm('Xác nhận từ chối đơn hàng này?')">Từ chối đơn hàng</a></li>
                 @elseif($status == 2)
-                <li><a href="{{ route('changeaddress', $order->OrderId) }}" class="btn-modal">Thay đổi địa chỉ</a></li>
+                <li><a href="#" class="btn-modal" data-toggle="modal" data-target="#addressModal">Thay đổi địa chỉ</a></li>
                 <li><a href="#" class="btn-modal" data-toggle="modal" data-target="#shippingModal">Chuyển giao hàng</a></li>
                 <li><a href="{{ route('reject', $order->OrderId) }}" onclick="return confirm('Xác nhận từ chối đơn hàng này?')">Từ chối đơn hàng</a></li>
                 @elseif($status == 3)
@@ -40,34 +40,34 @@
         <div class="form-group">
             <label class="control-label col-sm-2">Mã đơn hàng:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">{{ $order->OrderId  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->OrderId ?? '' }}</p>
             </div>
             <label class="control-label col-sm-2">Ngày lập đơn hàng:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">{{ $order->OrderTime  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->OrderTime ?? '' }}</p>
             </div>
             <label class="control-label col-sm-2">Nhân viên phụ trách:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">{{ $order->employee->FullName  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->employee->FullName ?? '' }}</p>
             </div>
             <label class="control-label col-sm-2">Ngày nhận đơn hàng:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">{{ $order->AcceptTime  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->AcceptTime ?? '' }}</p>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-2">Khách hàng:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">{{ $order->customer->CustomerName  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->customer->CustomerName ?? '' }}</p>
             </div>
             <label class="control-label col-sm-2">Email:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">{{ $order->customer->Email  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->customer->Email ?? '' }}</p>
             </div>
             <label class="control-label col-sm-2">Địa chỉ:</label>
             <div class="col-sm-10">
-                <p class="form-control-static">{{ $order->customer->Address  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->customer->Address ?? '' }}</p>
             </div>
 
         </div>
@@ -75,33 +75,33 @@
         <div class="form-group">
             <label class="control-label col-sm-2">Địa chỉ giao hàng:</label>
             <div class="col-sm-10">
-                <p class="form-control-static">{{ $order->DeliveryAddress  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->DeliveryAddress ?? '' }}</p>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-2">Người giao hàng:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">{{ $order->shipper->ShipperName  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->shipper->ShipperName ?? '' }}</p>
             </div>
             <label class="control-label col-sm-2">Điện thoại:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">{{ $order->shipper->Phone  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->shipper->Phone ?? '' }}</p>
             </div>
             <label class="control-label col-sm-2">Nhận giao hàng lúc:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">{{ $order->ShippedTime  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->ShippedTime ?? '' }}</p>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-2">Trạng thái đơn hàng:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">{{ $order->status->Description  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->status->Description ?? '' }}</p>
             </div>
             <label class="control-label col-sm-2">Thời điểm hoàn tất:</label>
             <div class="col-sm-4">
-                <p class="form-control-static">{{ $order->FinishedTime  ?? ''}}</p>
+                <p class="form-control-static">{{ $order->FinishedTime ?? '' }}</p>
             </div>
         </div>
     </div>
@@ -154,13 +154,13 @@
                     <tr>
                         <th colspan="4" class="text-right">Tổng cộng:</th>
                         <th class="text-right">{{ number_format($totalAmount) }}đ</th>
-                        <th></th>
                     </tr>
                 </tfoot>
             </table>
         </div>
     </div>
 </div>
+
 <!-- Modal Chuyển giao hàng -->
 <div id="shippingModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -199,6 +199,38 @@
     </div>
 </div>
 
+<!-- Modal Thay đổi địa chỉ -->
+<div id="addressModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formAddress" action="{{ route('changeaddress') }}" method="post">
+                @csrf
+                <input type="hidden" name="OrderId" value="{{$order->OrderId}}" />
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thay đổi địa chỉ giao hàng</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label">Địa chỉ mới:</label>
+                        <input type="text" class="form-control" name="DeliveryAddress" value="{{ $order->DeliveryAddress ?? '' }}">
+                    </div>
+                    <div class="form-group">
+                        <span id="message" style="color:#f00"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-floppy-o"></i> Cập nhật
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Bỏ qua
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
@@ -206,10 +238,35 @@
     $(document).ready(function() {
         $('.btn-modal').click(function(e) {
             e.preventDefault();
-            $('#shippingModal').modal('show');
+            var target = $(this).data('target');
+            $(target).modal('show');
         });
 
         $('#formShipping').submit(function(e) {
+            e.preventDefault();
+
+            var url = $(this).prop("action");
+            var method = $(this).prop("method");
+            var postData = $(this).serialize();
+
+            $.ajax({
+                url: url,
+                type: method,
+                data: postData,
+                error: function() {
+                    alert("Your request is not valid!");
+                },
+                success: function(data) {
+                    if (data !== "") {
+                        $("#message").html(data);
+                    } else {
+                        location.reload();
+                    }
+                }
+            });
+        });
+
+        $('#formAddress').submit(function(e) {
             e.preventDefault();
 
             var url = $(this).prop("action");

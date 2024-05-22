@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 @section('main')
 <div class="box box-primary">
     <div class="box-body">
@@ -45,13 +45,9 @@
                         @foreach($data as $item)
                         <tr>
                             <td>{{ $item->CategoryName }}</td>
-                            @foreach($categorylist as $item1)
-                            @if($item1->CategoryId == $item->ParentId)
-                            <td class="form-control-static">{{$item1->CategoryName}}</td>
-                            @else
-                            <td></td>
-                            @endif
-                            @endforeach
+                            <td>
+                                {{ $categorylist->firstWhere('CategoryId', $item->ParentId)->CategoryName ?? 'Không có' }}
+                            </td>
                             <td>{{ $item->CategoryDescription }}</td>
                             <td class="text-center">
                                 <a href="{{ route('editcategory', $item->CategoryId) }}" class="btn btn-info btn-sm">

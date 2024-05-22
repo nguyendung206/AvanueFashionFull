@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 @section('main')
 <div class="box box-primary">
     <div class="box-body">
@@ -49,14 +49,14 @@
                     <tbody>
                         @foreach($data as $item)
                         <tr>
-                            <td>{{ $item->customer->CustomerName  }}</td>
-                            <td>{{ $item->OrderTime }}</td>
-                            <td>{{ $item->employee->FullName }}</td>
-                            <td>{{ $item->AcceptTime }}</td>
-                            <td>{{ $item->ShipperId }}</td>
-                            <td>{{ $item->ShippedTime }}</td>
-                            <td>{{ $item->FinishedTime }}</td>
-                            <td>{{ $item->status->Description }}</td>
+                            <td>{{ $item->customer->CustomerName  ?? ''}}</td>
+                            <td>{{ $item->OrderTime ?? ''}}</td>
+                            <td>{{ $item->employee->FullName ?? ''}}</td>
+                            <td>{{ $item->AcceptTime ?? ''}}</td>
+                            <td>{{ $item->shipper->ShipperName ?? ''}}</td>
+                            <td>{{ $item->ShippedTime ?? ''}}</td>
+                            <td>{{ $item->FinishedTime ?? ''}}</td>
+                            <td>{{ $item->status->Description ?? ''}}</td>
                             <td>
                                 <a href="{{ route('orderdetail', $item->OrderId) }}" class="btn btn-info btn-sm">
                                     <i class="glyphicon glyphicon-th-list"></i>

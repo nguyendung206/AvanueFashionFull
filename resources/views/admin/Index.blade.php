@@ -1,3 +1,3 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 @section('main')
 @stop();

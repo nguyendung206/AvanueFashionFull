@@ -12,7 +12,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         // Khởi tạo truy vấn với mối quan hệ employees
-        $query = Orders::with('employee', 'customer');
+        $query = Orders::with('employee', 'customer','shipper');
 
         // Lọc theo Status nếu có
         if ($request->has('Status') && $request->Status != 0) {
@@ -52,7 +52,7 @@ class OrderController extends Controller
 
     public function Detail($OrderId)
     {
-        $order = Orders::with('products','shipper')->findOrFail($OrderId);
+        $order = Orders::with('products', 'shipper')->findOrFail($OrderId);
         $details = $order->details;
         $status = $order->Status;
         $shippers = Shippers::all();
@@ -96,5 +96,57 @@ class OrderController extends Controller
         } else {
             return redirect()->back()->with('error', 'Không thể xác định nhân viên.');
         }
+    }
+
+    public function Address(Request $request)
+    {
+        $order = Orders::findOrFail($request->OrderId);
+        $order->DeliveryAddress = $request->DeliveryAddress;
+        $order->save();
+        return redirect()->back();
+    }
+
+    public function Reject($OrderId)
+    {
+        $order = Orders::findOrFail($OrderId);
+        $employee = session('admin');
+
+        if ($employee) {
+            $order->Status = -2;
+            $order->FinishedTime = now();
+            $order->EmployeeId = $employee->EmployeeId;
+            $order->save();
+            return redirect()->back()->with('success', 'Đơn hàng đã được từ chối');
+        } else {
+            return redirect()->back()->with('error', 'Không thể xác định nhân viên.');
+        }
+    }
+
+    public function Cancel($OrderId)
+    {
+        $order = Orders::findOrFail($OrderId);
+        $employee = session('admin');
+
+        if ($employee) {
+            $order->Status = -1;
+            $order->FinishedTime = now();
+            $order->EmployeeId = $employee->EmployeeId;
+            $order->save();
+            return redirect()->back()->with('success', 'Đơn hàng đã được hủy');
+        } else {
+            return redirect()->back()->with('error', 'Không thể xác định nhân viên.');
+        }
+    }
+
+    public function Delete($OrderId)
+    {
+        $order = Orders::findOrFail($OrderId);
+        if (!$order) {
+            return redirect()->back()->with('error', 'Không tìm thấy đơn hàng để xóa');
+        }
+
+        $order->delete();
+        $order->products()->detach($OrderId);
+        return redirect()->route('order');
     }
 }

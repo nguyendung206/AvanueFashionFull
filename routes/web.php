@@ -147,7 +147,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/orderdetail/finish/{OrderId}', [OrderController::class, 'Finish'])->name('finish');
             Route::get('/orderdetail/cancel/{OrderId}', [OrderController::class, 'Cancel'])->name('cancel');
             Route::post('/orderdetail/shipping', [OrderController::class, 'Shipping'])->name('shipping');
-            Route::get('/orderdetail/changeaddress/{OrderId}', [OrderController::class, 'Address'])->name('changeaddress');
+            Route::post('/orderdetail/changeaddress', [OrderController::class, 'Address'])->name('changeaddress');
             Route::get('/orderdetail/delete/{OrderId}', [OrderController::class, 'Delete'])->name('delete');
         });
     });
