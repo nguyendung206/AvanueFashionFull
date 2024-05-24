@@ -47,7 +47,7 @@ class StoreController extends Controller
             $store->TimeOnline = $request->TimeOnline;
             $store->Information = $request->Information;
             $store->save();
-            return redirect('store')->with('message', 'Thêm cửa hàng thành công');
+            return redirect()->route('store')->with('message', 'Thêm cửa hàng thành công');
         } else {
             $store = Stores::where('StoreId', $request->StoreId)->first();
             if ($store) {
@@ -59,7 +59,7 @@ class StoreController extends Controller
                 $store->TimeOnline = $request->TimeOnline;
                 $store->Information = $request->Information;
                 $store->save();
-                return redirect('store')->with('message', 'Cập nhật thành công');
+                return redirect()->route('store')->with('message', 'Cập nhật thành công');
             }
         }
     }
@@ -79,6 +79,6 @@ class StoreController extends Controller
         }
 
         $store->delete();
-        return redirect('store')->with('message', 'Xóa cửa hàng thành công');
+        return redirect()->route('store')->with('message', 'Xóa cửa hàng thành công');
     }
 }

@@ -56,7 +56,7 @@ class EmployeeController extends Controller
                 $employee->Photo = $file_name;
             }
             $employee->save();
-            return redirect('employee')->with('message', 'Thêm nhân viên thành công');
+            return redirect()->route('employee')->with('message', 'Thêm nhân viên thành công');
         } else {
             $employee = Employees::where('EmployeeId', $request->EmployeeId)->first();
             if ($employee) {
@@ -72,7 +72,7 @@ class EmployeeController extends Controller
                     $employee->Photo = $file_name;
                 }
                 $employee->save();
-                return redirect('employee')->with('message', 'Cập nhật thành công');
+                return redirect()->route('employee')->with('message', 'Cập nhật thành công');
             }
         }
     }
@@ -93,6 +93,6 @@ class EmployeeController extends Controller
         }
 
         $employee->delete();
-        return redirect('employee')->with('message', 'Xóa nhân viên thành công');
+        return redirect()->route('employee')->with('message', 'Xóa nhân viên thành công');
     }
 }

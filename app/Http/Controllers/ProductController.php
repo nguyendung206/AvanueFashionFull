@@ -66,7 +66,7 @@ class ProductController extends Controller
             }
 
             $product->save();
-            return redirect('product')->with('message', 'Thêm mặt hàng thành công');
+            return redirect()->route('product')->with('message', 'Thêm mặt hàng thành công');
         } else {
             $product = Products::where('ProductId', $request->ProductId)->first();
             if ($product) {
@@ -82,7 +82,7 @@ class ProductController extends Controller
                     $product->ProductPhoto = $file_name;
                 }
                 $product->save();
-                return redirect('product')->with('message', 'Cập nhật thành công');
+                return redirect()->route('product')->with('message', 'Cập nhật thành công');
             }
         }
     }
@@ -102,7 +102,7 @@ class ProductController extends Controller
         }
 
         $product->delete();
-        return redirect('product')->with('message', 'Xóa mặt hàng thành công');
+        return redirect()->route('product')->with('message', 'Xóa mặt hàng thành công');
     }
 
     public function Color($ProductId, $method, $ColorId)

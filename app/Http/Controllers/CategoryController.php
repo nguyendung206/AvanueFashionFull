@@ -66,7 +66,7 @@ class CategoryController extends Controller
             $category->ParentId = $request->ParentId;
             $category->CategoryDescription = $request->CategoryDescription;
             $category->save();
-            return redirect('category')->with('message', 'Thêm loại hàng thành công');
+            return redirect()->route('category')->with('message', 'Thêm loại hàng thành công');
         } else {
             $category = Categories::where('CategoryId', $request->CategoryId)->first();
             if ($category) {

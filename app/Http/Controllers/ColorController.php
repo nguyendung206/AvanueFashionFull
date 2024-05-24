@@ -41,14 +41,14 @@ class ColorController extends Controller
             $color->ColorName = $request->ColorName;
             $color->ColorIllustration = $request->ColorIllustration;
             $color->save();
-            return redirect('color')->with('message', 'Thêm màu thành công');
+            return redirect()->route('color')->with('message', 'Thêm màu thành công');
         } else {
             $color = Colors::where('ColorId', $request->ColorId)->first();
             if ($color) {
                 $color->ColorName = $request->ColorName;
                 $color->ColorIllustration = $request->ColorIllustration;
                 $color->save();
-                return redirect('color')->with('message', 'Cập nhật thành công');
+                return redirect()->route('color')->with('message', 'Cập nhật thành công');
             }
         }
     }
@@ -59,7 +59,7 @@ class ColorController extends Controller
             'title' => 'Xóa màu',
         ], compact('color'));
     }
-    public function delete(Request $request, $ColorId)
+    public function delete($ColorId)
     {
         $color = Colors::find($ColorId);
 
@@ -68,6 +68,6 @@ class ColorController extends Controller
         }
 
         $color->delete();
-        return redirect('color')->with('message', 'Xóa màu thành công');
+        return redirect()->route('color')->with('message', 'Xóa màu thành công');
     }
 }

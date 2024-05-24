@@ -41,14 +41,14 @@ class ShipperController extends Controller
             $shipper->ShipperName = $request->ShipperName;
             $shipper->Phone = $request->Phone;
             $shipper->save();
-            return redirect('shipper')->with('message', 'Thêm người giao hàng thành công');
+            return redirect()->route('shipper')->with('message', 'Thêm người giao hàng thành công');
         } else {
             $shipper = Shippers::where('ShipperId', $request->ShipperId)->first();
             if ($shipper) {
                 $shipper->ShipperName = $request->ShipperName;
                 $shipper->Phone = $request->Phone;
                 $shipper->save();
-                return redirect('shipper')->with('message', 'Cập nhật thành công');
+                return redirect()->route('shipper')->with('message', 'Cập nhật thành công');
             }
         }
     }
@@ -68,6 +68,6 @@ class ShipperController extends Controller
         }
 
         $shipper->delete();
-        return redirect('shipper')->with('message', 'Xóa người giao hàng thành công');
+        return redirect()->route('shipper')->with('message', 'Xóa người giao hàng thành công');
     }
 }

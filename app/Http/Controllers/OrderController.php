@@ -149,4 +149,20 @@ class OrderController extends Controller
         $order->products()->detach($OrderId);
         return redirect()->route('order');
     }
+
+    public function Finish($OrderId)
+    {
+        $order = Orders::findOrFail($OrderId);
+        $employee = session('admin');
+
+        if ($employee) {
+            $order->Status = 4;
+            $order->FinishedTime = now();
+            $order->EmployeeId = $employee->EmployeeId;
+            $order->save();
+            return redirect()->back()->with('success', 'Đơn hàng đã được hủy');
+        } else {
+            return redirect()->back()->with('error', 'Không thể xác định nhân viên.');
+        }
+    }
 }

@@ -41,14 +41,14 @@ class TagController extends Controller
             $tag->TagName = $request->TagName;
             $tag->TagDescription = $request->TagDescription;
             $tag->save();
-            return redirect('tag')->with('message', 'Thêm tag thành công');
+            return redirect()->route('tag')->with('message', 'Thêm tag thành công');
         } else {
             $tag = Tags::where('TagId', $request->TagId)->first();
             if ($tag) {
                 $tag->TagName = $request->TagName;
                 $tag->TagDescription = $request->TagDescription;
                 $tag->save();
-                return redirect('tag')->with('message', 'Cập nhật thành công');
+                return redirect()->route('tag')->with('message', 'Cập nhật thành công');
             }
         }
     }
@@ -68,6 +68,6 @@ class TagController extends Controller
         }
 
         $tag->delete();
-        return redirect('tag')->with('message', 'Xóa Tag thành công');
+        return redirect()->route('tag')->with('message', 'Xóa Tag thành công');
     }
 }

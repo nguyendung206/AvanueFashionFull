@@ -45,7 +45,7 @@ class CustomerController extends Controller
             $customer->Address = $request->Address;
             $customer->Password = Hash::make($request->Password);
             $customer->save();
-            return redirect('customer')->with('message', 'Thêm khách hàng thành công');
+            return redirect()->route('customer')->with('message', 'Thêm khách hàng thành công');
         } else {
             $customer = Customers::where('CustomerId', $request->CustomerId)->first();
             if ($customer) {
@@ -57,7 +57,7 @@ class CustomerController extends Controller
                     $customer->Password = Hash::make($request->Password);
                 }
                 $customer->save();
-                return redirect('customer')->with('message', 'Cập nhật thành công');
+                return redirect()->route('customer')->with('message', 'Cập nhật thành công');
             }
         }
     }
@@ -77,6 +77,6 @@ class CustomerController extends Controller
         }
 
         $customer->delete();
-        return redirect('customer')->with('message', 'Xóa khách hàng thành công');
+        return redirect()->route('customer')->with('message', 'Xóa khách hàng thành công');
     }
 }

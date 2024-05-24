@@ -43,14 +43,14 @@ class SaleoffController extends Controller
             $saleoff->Type = $request->Type;
             $saleoff->DiscountPrice = $request->DiscountPrice;
             $saleoff->save();
-            return redirect('saleoff')->with('message', 'Thêm khuyến mãi thành công');
+            return redirect()->route('saleoff')->with('message', 'Thêm khuyến mãi thành công');
         } else {
             $saleoff = Saleoffs::where('SaleOffId', $request->SaleOffId)->first();
             if ($saleoff) {
                 $saleoff->Type = $request->Type;
                 $saleoff->DiscountPrice = $request->DiscountPrice;
                 $saleoff->save();
-                return redirect('saleoff')->with('message', 'Cập nhật thành công');
+                return redirect()->route('saleoff')->with('message', 'Cập nhật thành công');
             }
         }
     }
@@ -70,6 +70,6 @@ class SaleoffController extends Controller
         }
 
         $saleoff->delete();
-        return redirect('saleoff')->with('message', 'Xóa Size thành công');
+        return redirect()->route('saleoff')->with('message', 'Xóa Size thành công');
     }
 }

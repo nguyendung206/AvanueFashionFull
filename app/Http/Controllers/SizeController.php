@@ -41,14 +41,14 @@ class SizeController extends Controller
             $size->SizeName = $request->SizeName;
             $size->SizeDescription = $request->SizeDescription;
             $size->save();
-            return redirect('size')->with('message', 'Thêm Size thành công');
+            return redirect()->route('size')->with('message', 'Thêm Size thành công');
         } else {
             $size = Sizes::where('SizeId', $request->SizeId)->first();
             if ($size) {
                 $size->SizeName = $request->SizeName;
                 $size->SizeDescription = $request->SizeDescription;
                 $size->save();
-                return redirect('size')->with('message', 'Cập nhật thành công');
+                return redirect()->route('size')->with('message', 'Cập nhật thành công');
             }
         }
     }
@@ -68,6 +68,6 @@ class SizeController extends Controller
         }
 
         $size->delete();
-        return redirect('size')->with('message', 'Xóa Size thành công');
+        return redirect()->route('size')->with('message', 'Xóa Size thành công');
     }
 }
