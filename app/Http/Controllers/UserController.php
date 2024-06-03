@@ -59,6 +59,7 @@ class UserController extends Controller
     public function SignOut()
     {
         Session::forget('user');
+        Session::forget('cart');
         Auth::logout();
         return redirect()->route('home');
     }

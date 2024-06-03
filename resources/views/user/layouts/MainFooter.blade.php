@@ -59,6 +59,7 @@
 <script type="text/javascript" src="/js/jquery.carouFredSel-6.2.1-packed.js"></script>
 <script defer src="/js/jquery.flexslider.js"></script>
 <script type="text/javascript" src="/js/script.min.js"></script>
+<script type="text/javascript" src='/js/jquery.elevatezoom.js'>
+</script>
 </body>
-
 </html>

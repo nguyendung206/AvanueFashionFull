@@ -24,7 +24,7 @@ class HomeController extends Controller
         $categoryList = $this->buildCategoryTree($allCategories);
         $tagList = Tags::all();
         $colorList = Colors::all();
-        return view('user.Index', compact('productList', 'categoryList', 'colorList','tagList'));
+        return view('user.Index', compact('productList', 'categoryList', 'colorList', 'tagList'));
     }
 
     private function buildCategoryTree($categories, $parentId = 0, $level = 0)
@@ -39,7 +39,19 @@ class HomeController extends Controller
                 $branch = array_merge($branch, $children);
             }
         }
-
         return $branch;
+    }
+
+    public function Detail($ProductId)
+    {
+        if ($ProductId != null) {
+            $product = Products::where('ProductId', $ProductId)->first();
+            if ($product) {
+                $photoMedium = $product->photos()->where('Description', 'like', '%Medium%')->first();
+                $photoLarge = $product->photos()->where('Description', 'like', '%Large%')->first();
+            }
+        }
+        $tagList = Tags::all();
+        return view('user.Details', compact('product', 'photoMedium', 'photoLarge', 'tagList'));
     }
 }

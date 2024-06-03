@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{EmployeeId}', [EmployeeController::class, 'showDeleteForm'])->name('deleteemployee');
             Route::post('/delete/{EmployeeId}', [EmployeeController::class, 'delete'])->name('deleteemployee.post');
         });
-        
+
         Route::prefix('category')->group(function () {
             Route::get('/', [CategoryController::class, 'Index'])->name('category');
             Route::get('/search', [CategoryController::class, 'Index'])->name('searchcategory');
@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{CategoryId}', [CategoryController::class, 'showDeleteForm'])->name('deletecategory');
             Route::post('/delete/{CategoryId}', [CategoryController::class, 'delete'])->name('deletecategory.post');
         });
-        
+
         Route::prefix('customer')->group(function () {
             Route::get('/', [CustomerController::class, 'Index'])->name('customer');
             Route::get('/search', [CustomerController::class, 'Index'])->name('searchcustomer');
@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{CustomerId}', [CustomerController::class, 'showDeleteForm'])->name('deletecustomer');
             Route::post('/delete/{CustomerId}', [CustomerController::class, 'delete'])->name('deletecustomer.post');
         });
-        
+
         Route::prefix('store')->group(function () {
             Route::get('/', [StoreController::class, 'Index'])->name('store');
             Route::get('/search', [StoreController::class, 'Index'])->name('searchstore');
@@ -62,7 +62,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{StoreId}', [StoreController::class, 'showDeleteForm'])->name('deletestore');
             Route::post('/delete/{StoreId}', [StoreController::class, 'delete'])->name('deletestore.post');
         });
-        
+
         Route::prefix('color')->group(function () {
             Route::get('/', [ColorController::class, 'Index'])->name('color');
             Route::get('/search', [ColorController::class, 'Index'])->name('searchcolor');
@@ -72,7 +72,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{ColorId}', [ColorController::class, 'showDeleteForm'])->name('deletecolor');
             Route::post('/delete/{ColorId}', [ColorController::class, 'delete'])->name('deletecolor.post');
         });
-        
+
         Route::prefix('size')->group(function () {
             Route::get('/', [SizeController::class, 'Index'])->name('size');
             Route::get('/search', [SizeController::class, 'Index'])->name('searchsize');
@@ -82,7 +82,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{SizeId}', [SizeController::class, 'showDeleteForm'])->name('deletesize');
             Route::post('/delete/{SizeId}', [SizeController::class, 'delete'])->name('deletecolor.post');
         });
-        
+
         Route::prefix('tag')->group(function () {
             Route::get('/', [TagController::class, 'Index'])->name('tag');
             Route::get('/search', [TagController::class, 'Index'])->name('searchtag');
@@ -92,7 +92,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{TagId}', [TagController::class, 'showDeleteForm'])->name('deletetag');
             Route::post('/delete/{TagId}', [TagController::class, 'delete'])->name('deletecolor.post');
         });
-        
+
         Route::prefix('saleoff')->group(function () {
             Route::get('/', [SaleoffController::class, 'Index'])->name('saleoff');
             Route::get('/search', [SaleoffController::class, 'Index'])->name('searchsaleoff');
@@ -102,7 +102,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/delete/{SaleOffId}', [SaleoffController::class, 'showDeleteForm'])->name('deletesaleoff');
             Route::post('/delete/{SaleOffId}', [SaleoffController::class, 'delete'])->name('deletesaleoff.post');
         });
-        
+
         Route::prefix('product')->group(function () {
             Route::get('/', [ProductController::class, 'Index'])->name('product');
             Route::get('/search', [ProductController::class, 'Index'])->name('searchproduct');
@@ -114,20 +114,24 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/addcolor/{ProductId}/{method}/{ColorId}', [ProductController::class, 'Color'])->name('addcolorproduct');
             Route::post('/edit/addcolor/save', [ProductController::class, 'SaveColor'])->name('savecolorproduct');
             Route::get('/edit/deletecolor/{ProductId}/{method}/{ColorId}', [ProductController::class, 'Color'])->name('deletecolorproduct');
-        
+
             Route::get('/edit/addsize/{ProductId}/{method}/{SizeId}', [ProductController::class, 'Size'])->name('addsizeproduct');
             Route::post('/edit/addsize/save', [ProductController::class, 'SaveSize'])->name('savesizeproduct');
             Route::get('/edit/deletesize/{ProductId}/{method}/{SizeId}', [ProductController::class, 'Size'])->name('deletesizeproduct');
-        
+
             Route::get('/edit/addsaleoff/{ProductId}/{method}/{SaleOffId}', [ProductController::class, 'Saleoff'])->name('addsaleoffproduct');
             Route::post('/edit/addsaleoff/save', [ProductController::class, 'SaveSaleoff'])->name('savesaleoffproduct');
             Route::get('/edit/deletesaleoff/{ProductId}/{method}/{SaleOffId}', [ProductController::class, 'Saleoff'])->name('deletesaleoffproduct');
-        
+
             Route::get('/edit/addtag/{ProductId}/{method}/{TagId}', [ProductController::class, 'Tag'])->name('addtagproduct');
             Route::post('/edit/addtag/save', [ProductController::class, 'SaveTag'])->name('savetagproduct');
             Route::get('/edit/deletetag/{ProductId}/{method}/{TagId}', [ProductController::class, 'Tag'])->name('deletetagproduct');
+
+            Route::get('/edit/addphoto/{ProductId}/{method}/{PhotoId}', [ProductController::class, 'Photo'])->name('addphotoproduct');
+            Route::post('/edit/addphoto/save', [ProductController::class, 'SavePhoto'])->name('savephotoproduct');
+            Route::get('/edit/deletephoto/{ProductId}/{method}/{PhotoId}', [ProductController::class, 'Photo'])->name('deletephotoproduct');
         });
-        
+
         Route::prefix('shipper')->group(function () {
             Route::get('/', [ShipperController::class, 'Index'])->name('shipper');
             Route::get('/search', [ShipperController::class, 'Index'])->name('searchshipper');
@@ -152,4 +156,3 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 });
-

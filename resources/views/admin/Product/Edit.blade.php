@@ -50,6 +50,51 @@
     </div>
 </div>
 @if($isEdit)
+
+<div class="box box-info">
+    <div class="box-header with-border ">
+        <h3 class="box-title">Ảnh của mặt hàng</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="box-body">
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr class="bg-gray">
+                    <th>Ảnh</th>
+                    <th>Mô tả</th>
+                    <th class="text-right">
+                        <a class="btn btn-sm btn-primary" href="{{ route('addphotoproduct', ['ProductId' => $product->ProductId, 'PhotoId' => 0,'method' => 'add']) }}">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($photos as $photo)
+                <tr>
+                    <td style="vertical-align:middle">
+                        <img src="/upload/product/{{ $photo->Photo }}" style="width:100px" />
+                    </td>
+                    <td style="vertical-align:middle;">{{ $photo->Description }}</td>
+                    <td style="vertical-align:middle; text-align:right">
+                        <a class="btn btn-danger btn-sm" href="{{ route('deletephotoproduct', ['ProductId' => $product->ProductId, 'PhotoId' => $photo->PhotoId, 'method' => 'delete']) }}" onclick="return confirm('Xóa ảnh này của mặt hàng?')">
+                            <i class="fa fa-remove"></i>
+                        </a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer text-center">
+    </div>
+</div>
+
 <div class="box box-info">
 
     <div class="box-header with-border ">

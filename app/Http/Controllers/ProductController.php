@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categories;
 use App\Models\Colors;
+use App\Models\ProductPhoto;
 use App\Models\Products;
 use App\Models\Saleoffs;
 use App\Models\Sizes;
@@ -33,7 +34,7 @@ class ProductController extends Controller
         return view('admin.Product.Edit', [
             'title' => 'Thêm mặt hàng',
             'isEdit' => $isEdit,
-        ], compact('product','categories'));
+        ], compact('product', 'categories'));
     }
     public function Edit($ProductId)
     {
@@ -43,11 +44,12 @@ class ProductController extends Controller
         $sizes = $product->sizes()->get();
         $saleoffs = $product->saleoffs()->get();
         $tags = $product->tags()->get();
+        $photos = ProductPhoto::where('ProductId', $ProductId)->get();
         $isEdit = true;
         return view('admin.Product.Edit', [
             'title' => 'Cập nhật thông tin mặt hàng',
             'isEdit' => $isEdit,
-        ], compact('product', 'colors', 'sizes', 'saleoffs', 'tags','categories'));
+        ], compact('product', 'colors', 'sizes', 'saleoffs', 'tags', 'categories', 'photos'));
     }
     public function Save(Request $request)
     {
@@ -103,6 +105,43 @@ class ProductController extends Controller
 
         $product->delete();
         return redirect()->route('product')->with('message', 'Xóa mặt hàng thành công');
+    }
+
+    public function Photo($ProductId, $method, $PhotoId)
+    {
+        switch ($method) {
+            case "add":
+                $photos = ProductPhoto::where('ProductId', $ProductId);
+                return view('admin.Product.Photo', [
+                    'title' => 'Thêm ảnh cho mặt hàng',
+                    'ProductId' => $ProductId,
+                ], compact('photos', 'ProductId'));
+            case "delete":
+                $photo = ProductPhoto::find($PhotoId);
+                if ($photo) {
+                    $photo->delete();
+                    return redirect()->route('editproduct', ['ProductId' => $ProductId]);
+                }
+            default:
+                return redirect()->route('product');
+        }
+    }
+
+    public function SavePhoto(Request $request)
+    {
+        $photo = new ProductPhoto();
+        $photo->Description = $request->Description;
+        $photo->ProductId = $request->ProductId;
+        if ($request->hasFile('uploadPhoto')) {
+            $file = $request->file('uploadPhoto');
+            $ext = $file->getClientOriginalExtension();
+            $file_name = time() . '-' . 'product.' . $ext;
+            $file->move(public_path('upload/product'), $file_name);
+            $photo->Photo = $file_name;
+        }
+
+        $photo->save();
+        return redirect()->route('editproduct', ['ProductId' => $photo->ProductId]);
     }
 
     public function Color($ProductId, $method, $ColorId)

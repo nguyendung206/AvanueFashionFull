@@ -165,4 +165,6 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Không thể xác định nhân viên.');
         }
     }
+
+    
 }

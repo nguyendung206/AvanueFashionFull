@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\DetailController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -17,11 +19,16 @@ Route::prefix('user')->group(function () {
         Route::get('/search/category/{CategoryId}', [HomeController::class, 'Index'])->name('searchcategoryid');
         Route::get('/search/color/{ColorId}', [HomeController::class, 'Index'])->name('searchcolorid');
         Route::get('/search/tag/{TagId}', [HomeController::class, 'Index'])->name('searchtagid');
-        // Route::get('add', [HomeController::class, 'Create'])->name('addemployee');
-        // Route::post('add', [HomeController::class, 'Save'])->name('saveemployee');
-        // Route::get('/delete/{EmployeeId}', [HomeController::class, 'showDeleteForm'])->name('deleteemployee');
-        // Route::post('/delete/{EmployeeId}', [HomeController::class, 'delete'])->name('deleteemployee.post');
+        Route::get('/details/{ProductId}', [HomeController::class, 'Detail'])->name('detail');
     });
+    // Route::get('/addtocart', [CartController::class, 'AddToCart'])->name('addtocart');
+
 });
 Route::middleware(['auth'])->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::prefix('cart')->group(function () {
+            Route::get('/cart}', [CartController::class, 'Index'])->name('cart');
+            Route::post('/addtocart', [CartController::class, 'AddToCart'])->name('addtocart');
+        });
+    });
 });

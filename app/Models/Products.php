@@ -32,4 +32,9 @@ class Products extends Model
         return $this->belongsToMany(Orders::class, 'orderdetails', 'ProductId', 'OrderId')
             ->withPivot('Quantity', 'SalePrice');
     }
+
+    public function photos()
+    {
+        return $this->hasMany(ProductPhoto::class, 'ProductId', 'ProductId');
+    }
 }
