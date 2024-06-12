@@ -24,7 +24,10 @@ class HomeController extends Controller
         $categoryList = $this->buildCategoryTree($allCategories);
         $tagList = Tags::all();
         $colorList = Colors::all();
-        return view('user.Index', compact('productList', 'categoryList', 'colorList', 'tagList'));
+        $cartCount = count($request->session()->get('cart', []));
+
+        // Truyền số lượng sản phẩm và các thông tin khác đến view
+        return view('user.Index', compact('productList', 'categoryList', 'colorList', 'tagList', 'cartCount'));
     }
 
     private function buildCategoryTree($categories, $parentId = 0, $level = 0)
@@ -42,16 +45,25 @@ class HomeController extends Controller
         return $branch;
     }
 
-    public function Detail($ProductId)
+    public function Detail(Request $request, $ProductId)
     {
         if ($ProductId != null) {
             $product = Products::where('ProductId', $ProductId)->first();
             if ($product) {
                 $photoMedium = $product->photos()->where('Description', 'like', '%Medium%')->first();
                 $photoLarge = $product->photos()->where('Description', 'like', '%Large%')->first();
+                $colors = $product->colors()->get();
+                $sizes = $product->sizes()->get();
+            } else {
+                // Xử lý trường hợp không tìm thấy sản phẩm
+                return redirect()->route('error')->withErrors(['error' => 'Product not found']);
             }
+        } else {
+            // Xử lý trường hợp $ProductId không hợp lệ
+            return redirect()->route('error')->withErrors(['error' => 'Invalid product ID']);
         }
         $tagList = Tags::all();
-        return view('user.Details', compact('product', 'photoMedium', 'photoLarge', 'tagList'));
+        $cartCount = count($request->session()->get('cart', []));
+        return view('user.Details', compact('product', 'photoMedium', 'photoLarge', 'tagList', 'colors', 'sizes', 'cartCount'));
     }
 }

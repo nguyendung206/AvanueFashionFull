@@ -29,6 +29,9 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('cart')->group(function () {
             Route::get('/cart}', [CartController::class, 'Index'])->name('cart');
             Route::post('/addtocart', [CartController::class, 'AddToCart'])->name('addtocart');
+            Route::get('/updatecart/{productId}', [CartController::class, 'UpdateToCart'])->name('updatecart');
+            Route::post('/updatecart/{productId}', [CartController::class, 'UpdateToCart'])->name('updatecart');
+            Route::get('/deletecart/{productId}', [CartController::class, 'DeleteCart'])->name('deletecart');
         });
     });
 });

@@ -1226,7 +1226,7 @@ ul.dropdown-menu>li>a:hover {
     float: left;
     width: 100%;
     text-align: center;
-    font-size: 16px;
+    font-size: 24px;
     color: #2f2f2f;
     margin-bottom: 10px;
     color: #333333;
@@ -2128,12 +2128,52 @@ option {
     width: 100%;
 }
 
+.options {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.options label {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.options input[type="radio"],
+.options input[type="checkbox"] {
+    display: none;
+}
+
+.size-options .size-label {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.size-options input[type="checkbox"]:checked+.size-label {
+    background-color: #000;
+    color: #fff;
+}
+
+.color-options .color-label {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    display: inline-block;
+    border: 2px solid transparent;
+}
+
+.color-options input[type="checkbox"]:checked+.color-label {
+    border-color: black;
+}
+
 .products-description .qty {
     float: left;
     font-weight: 400;
-    width: auto;
-    font-size: 13px;
+    font-size: 16px;
     vertical-align: middle;
+    margin-bottom: 12px;
 }
 
 .products-description .qty select {
@@ -2427,6 +2467,7 @@ option {
 }
 
 .shop-details .text {
+    font-size: 16px;
     float: left;
     padding: 2px 15px 5px 0;
 }
@@ -2438,8 +2479,8 @@ option {
 
 .shop-details .color-choser li a {
     float: left;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     font-size: 0;
     -webkit-border-radius: 3px;
     border-radius: 3px;

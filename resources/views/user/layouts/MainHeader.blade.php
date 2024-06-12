@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
     <link href="/css/sequence-looptheme.css" rel="stylesheet" media="all" />
     <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond./js/1.3.0/respond.min.js"></script><![endif]-->
 </head>
 
@@ -73,35 +74,36 @@
                                     </form>
                                 </li>
                                 <li class="option-cart">
-                                    <a href="#" class="cart-icon">cart <span class="cart_no">02</span></a>
+                                    <a href="{{ route('cart') }}" class="cart-icon">cart <span class="cart_no">{{ $cartCount }}</span></a>
                                     <ul class="option-cart-item">
+                                        <!-- Hiển thị thông tin từ session cart -->
+                                        @foreach(session('cart', []) as $cartItem)
                                         <li>
                                             <div class="cart-item">
-                                                <div class="image"><img src="/images/products/thum/products-01.png" alt=""></div>
+                                                <div class="image"><img src="/upload/product/{{ $cartItem['photo']}}" alt=""></div>
                                                 <div class="item-description">
-                                                    <p class="name">Lincoln chair</p>
-                                                    <p>Size: <span class="light-red">One size</span><br>Quantity: <span class="light-red">01</span></p>
+                                                    <p class="name">{{ $cartItem['productName'] }}</p>
+                                                    Quantity: <span class="light-red">{{ $cartItem['quantity'] }}</span></p>
+                                                    <p class="price">{{ number_format($cartItem['price'] * $cartItem['quantity'], 0) }} VND</p>
                                                 </div>
                                                 <div class="right">
-                                                    <p class="price">$30.00</p>
-                                                    <a href="#" class="remove"><img src="/images/remove.png" alt="remove"></a>
+                                                    <a href="{{route('deletecart', $cartItem['productId'])}}" class="remove"><img src="/images/remove.png" alt="remove"></a>
                                                 </div>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="cart-item">
-                                                <div class="image"><img src="/images/products/thum/products-02.png" alt=""></div>
-                                                <div class="item-description">
-                                                    <p class="name">Lincoln chair</p>
-                                                    <p>Size: <span class="light-red">One size</span><br>Quantity: <span class="light-red">01</span></p>
-                                                </div>
-                                                <div class="right">
-                                                    <p class="price">$30.00</p>
-                                                    <a href="#" class="remove"><img src="/images/remove.png" alt="remove"></a>
-                                                </div>
-                                            </div>
+                                        @endforeach
+                                        <!-- Tính toán và hiển thị tổng số tiền của giỏ hàng -->
+                                        @php
+                                        $totalPrice = 0;
+                                        foreach(session('cart', []) as $cartItem) {
+                                        $totalPrice += $cartItem['price'] * $cartItem['quantity'];
+                                        }
+                                        @endphp
+                                        <li><span class="total">Total <strong>{{ number_format($totalPrice, 0) }} VND</strong></span>
                                         </li>
-                                        <li><span class="total">Total <strong>$60.00</strong></span><button class="checkout" onClick="location.href='checkout.html'">CheckOut</button></li>
+                                        <li>
+                                            <button class="checkout" onClick="location.href='checkout.html'">CheckOut</button>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>
@@ -140,7 +142,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li><a href="{{route('cart')}}">gift</a></li>
+                                    <li><a href="{{route('cart')}}">cart</a></li>
                                     <li><a href="productgird.html">kids</a></li>
                                     <li><a href="productgird.html">blog</a></li>
                                     <li><a href="productgird.html">jewelry</a></li>
