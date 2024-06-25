@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\Colors;
 use App\Models\Products;
 use App\Models\Sizes;
@@ -38,13 +39,9 @@ class CartController extends Controller
             return redirect()->back()->withErrors(['error' => 'Product not found']);
         }
 
-        if (!$request->session()->has('cart')) {
-            $request->session()->put('cart', []);
-        }
+        $cart = $request->session()->get('cart', []);
 
-        $cart = $request->session()->get('cart');
-
-        // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+        // Check if the product already exists in the cart
         $existingProductKey = null;
         foreach ($cart as $key => $item) {
             if ($item['productId'] == $productId) {
@@ -53,6 +50,7 @@ class CartController extends Controller
             }
         }
 
+        // Update quantity if product exists, otherwise add new product to cart
         if ($existingProductKey !== null) {
             $cart[$existingProductKey]['quantity'] += $quantity;
         } else {
@@ -67,12 +65,14 @@ class CartController extends Controller
             ];
         }
 
+        // Save the updated cart in session
         $request->session()->put('cart', $cart);
-        $cartCount = count($request->session()->get('cart', []));
+        $cartCount = count($cart);
 
-        // Trả về phản hồi JSON với số lượng sản phẩm trong giỏ hàng
+        // Return JSON response with success message and cart count
         return response()->json(['success' => true, 'cartCount' => $cartCount, 'message' => 'Product added to cart successfully']);
     }
+
 
 
     public function UpdateToCart(Request $request, $productId)
@@ -89,7 +89,7 @@ class CartController extends Controller
             $edit = true;
             $tagList = Tags::all();
             $cartCount = count($request->session()->get('cart', []));
-            return view('user.Details', compact('product', 'photoMedium', 'photoLarge', 'tagList', 'colors', 'sizes', 'cartCount','edit'));
+            return view('user.Details', compact('product', 'photoMedium', 'photoLarge', 'tagList', 'colors', 'sizes', 'cartCount', 'edit'));
         } else if ($request->isMethod('post')) {
             $quantity = $request->input('Quantity');
             $productId = $request->input('productId');
@@ -143,5 +143,32 @@ class CartController extends Controller
 
         // Tùy chọn: Bạn có thể thêm thông báo flash hoặc trả về một phản hồi
         return redirect()->route('cart')->with('success', 'Sản phẩm đã được xóa khỏi giỏ hàng thành công');
+    }
+
+    public function CheckOut(Request $request)
+    {
+        $allCategories = Categories::all();
+        $categoryList = $this->buildCategoryTree($allCategories);
+        $colorList = Colors::all();
+        $sizeList = Sizes::all();
+        $tagList = Tags::all();
+        $cart = $request->session()->get('cart', []);
+        $cartCount = count($cart);
+        return view('user.CheckOut', compact('colorList', 'sizeList', 'categoryList','tagList', 'cart', 'cartCount'));
+    }
+
+    private function buildCategoryTree($categories, $parentId = 0, $level = 0)
+    {
+        $branch = [];
+
+        foreach ($categories as $category) {
+            if ($category->ParentId == $parentId) {
+                $category->level = $level;
+                $branch[] = $category;
+                $children = $this->buildCategoryTree($categories, $category->CategoryId, $level + 1);
+                $branch = array_merge($branch, $children);
+            }
+        }
+        return $branch;
     }
 }

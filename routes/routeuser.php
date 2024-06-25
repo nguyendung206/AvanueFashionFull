@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/updatecart/{productId}', [CartController::class, 'UpdateToCart'])->name('updatecart');
             Route::post('/updatecart/{productId}', [CartController::class, 'UpdateToCart'])->name('updatecart');
             Route::get('/deletecart/{productId}', [CartController::class, 'DeleteCart'])->name('deletecart');
+            Route::get('/checkout', [CartController::class, 'CheckOut'])->name('checkout');
         });
     });
 });

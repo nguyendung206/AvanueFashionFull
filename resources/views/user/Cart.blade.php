@@ -116,9 +116,11 @@
                                         Continue Shopping
                                     </button>
                                 </a>
-                                <button class="pull-right">
-                                    Update Shopping Cart
-                                </button>
+                                <a href="{{ route('checkout') }}">
+                                    <button class="pull-right">
+                                        Check Out
+                                    </button>
+                                </a>
                             </td>
                         </tr>
                     </tfoot>
